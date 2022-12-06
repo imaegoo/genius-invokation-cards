@@ -15,15 +15,29 @@
     <script src="//unpkg.com/element-plus"></script>
     <style>
       #app {
+        position: relative;
         color: #9ca0a1;
         margin: 0 auto;
         width: 1180px;
+      }
+      .toc {
+        position: fixed;
+        z-index: 5;
+        top: 20px;
+        right: 20px;
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <h1>角色牌</h1>
+      <el-card class="toc">
+        <strong>TOC</strong><br>
+        <el-link href="#roles">角色牌</el-link><br>
+        <el-link href="#equips">装备牌</el-link><br>
+        <el-link href="#supports">支援牌</el-link><br>
+        <el-link href="#events">事件牌</el-link>
+      </el-card>
+      <h1 id="roles">角色牌</h1>
       <el-table :data="card.roles" border>
         <el-table-column width="80" prop="id" label="ID"></el-table-column>
         <el-table-column width="160" label="图片">
@@ -67,7 +81,7 @@
         </el-table-column>
       </el-table>
       <div v-for="actionType of actionTypes">
-        <h1>{{ actionType.title }}</h1>
+        <h1 :id="actionType.key">{{ actionType.title }}</h1>
         <el-table :data="card[actionType.key]" border>
           <el-table-column width="80" prop="id" label="ID"></el-table-column>
           <el-table-column width="160" label="图片">
@@ -87,8 +101,7 @@
           <el-table-column width="140" prop="action_card_tags" label="标签">
             <template #default="scope">
               <span>
-                {{ scope.row.action_card_tags .map(tag => tag.text) .filter(i =>
-                !!i) .join('，') }}
+                {{ scope.row.action_card_tags.map(tag => tag.text).filter(i => !!i).join('，') }}
               </span>
             </template>
           </el-table-column>

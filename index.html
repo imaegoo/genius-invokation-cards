@@ -174,7 +174,7 @@
         },
         async mounted() {
           const res = await fetch("./card_config.json");
-          const data = await res.json();
+          const { data } = await res.json();
           this.card.roles = data.role_card_infos;
           this.card.equips = data.action_card_infos.filter(
             (action) => action.action_type === "AcEquip"
